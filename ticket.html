@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Candy Planet | Ticket de Compra</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            /* Un color de fondo suave */
+        }
+
+        .ticket-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2.5rem 1.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            /* Para las esquinas */
+            overflow: hidden;
+            /* Para que las esquinas se recorten */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ticket-container::before,
+        .ticket-container::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #f8f9fa;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+        }
+
+        .ticket-container::before {
+            top: -15px;
+            left: -15px;
+        }
+
+        .ticket-container::after {
+            bottom: -15px;
+            right: -15px;
+        }
+
+        .ticket-header h1 {
+            font-family: 'Fredoka One', cursive;
+            color: black;
+            /* Color negro como en la imagen */
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .ticket-header p {
+            margin-bottom: 0.2rem;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+
+        .ticket-divider {
+            border-top: 1px dashed #aaa;
+            margin: 1.5rem 0;
+        }
+
+        .ticket-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .ticket-info span {
+            display: inline-block;
+            width: 48%;
+            /* Para alinear Fecha y Hora */
+        }
+
+        .ticket-items-header {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .ticket-items-header span {
+            width: 48%;
+        }
+
+        .ticket-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .ticket-item span {
+            width: 48%;
+        }
+
+        .ticket-logo {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .ticket-logo img {
+            max-width: 200px;
+            opacity: 0.4;
+        }
+
+        .ticket-summary {
+            margin-top: 2rem;
+            border-top: 1px dashed #aaa;
+            padding-top: 1.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .ticket-summary .row {
+            margin-bottom: 0.5rem;
+        }
+
+        .ticket-footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .barcode {
+            margin: 1.5rem auto;
+            max-width: 250px;
+            height: 80px;
+            background-color: black;
+            /* Placeholder for barcode */
+        }
+
+        .website-link {
+            display: block;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: black;
+            text-decoration: none;
+        }
+
+        .note-iva {
+            text-align: center;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Ocultar elementos no deseados para el ticket */
+        .navbar,
+        .back-to-top,
+        .spinner-grow {
+            display: none !important;
+        }
+
+        @media print {
+            body {
+                background-color: white !important;
+            }
+
+            .ticket-container {
+                box-shadow: none;
+                border: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .ticket-container::before,
+            .ticket-container::after {
+                display: none;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Ticket Start -->
+    <div class="container py-5">
+        <div class="ticket-container" id="ticket">
+            <div class="ticket-header text-center">
+                <h1>CANDY PLANET</h1>
+                <p>Cam. Al Laurel N° 170</p>
+                <p>El Laurel, C.P 52799, Huixquilucan de Degollado,</p>
+                <p>Estado de México.</p>
+                <p>Tel: 5567108268</p>
+            </div>
+
+            <div class="ticket-divider"></div>
+
+            <div class="ticket-info">
+                <span>FECHA: <span id="ticket-date-display"></span></span>
+                <span>HORA: <span id="ticket-time-display"></span></span>
+            </div>
+
+            <div class="ticket-items-header">
+                <span>ARTÍCULO</span>
+                <span class="text-end">PRECIO</span>
+            </div>
+
+            <div id="ticket-items">
+                <!-- Los items se agregarán dinámicamente -->
+            </div>
+
+            <div class="ticket-logo">
+                <img src="img/candyP.jpeg" alt="Candy Planet Logo">
+            </div>
+
+            <div class="ticket-divider"></div>
+
+            <div class="ticket-summary">
+                <div class="row">
+                    <div class="col-6">TOTAL</div>
+                    <div class="col-6 text-end" id="ticket-total-display"></div>
+                </div>
+            </div>
+            <p class="note-iva">***IVA incluido en el precio***</p>
+
+            <div class="ticket-footer">
+                <p>¡GRACIAS POR TU COMPRA!</p>
+                <div class="barcode"></div> <!-- Placeholder for barcode -->
+                <a href="https://www.candyplanet.com" class="website-link">WWW.CANDYPLANET.COM</a>
+            </div>
+        </div>
+
+        <div class="text-center mt-4 no-print">
+            <button class="btn btn-primary me-2" onclick="window.print()">
+                <i class="fas fa-print"></i> Imprimir Ticket
+            </button>
+            <a href="index.html" class="btn btn-secondary">
+                <i class="fas fa-home"></i> Volver al Inicio
+            </a>
+        </div>
+    </div>
+    <!-- Ticket End -->
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Biblioteca para generar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+        // Cargar ticket
+        function loadTicket() {
+            const ticket = JSON.parse(localStorage.getItem('currentTicket'));
+            if (!ticket) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            // Generar número de ticket si no existe (esto ya no es necesario para la visualización del ticket, pero mantiene la consistencia si se usa en otro lugar)
+            if (!ticket.number) {
+                ticket.number = Math.floor(Math.random() * 1000000).toString();
+
+                // Guardar en historial
+                const tickets = JSON.parse(localStorage.getItem('ticketHistory')) || [];
+                // Evitar duplicados si el ticket ya se guardó
+                if (!tickets.some(t => t.number === ticket.number)) {
+                    tickets.push(ticket);
+                    localStorage.setItem('ticketHistory', JSON.stringify(tickets));
+                }
+
+                localStorage.setItem('currentTicket', JSON.stringify(ticket));
+            }
+
+            // Formatear fecha y hora
+            const dateObj = new Date(ticket.date);
+            const formattedDate = dateObj.toLocaleDateString();
+            const formattedTime = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            document.getElementById('ticket-date-display').textContent = formattedDate;
+            document.getElementById('ticket-time-display').textContent = formattedTime;
+
+            // Cargar items
+            const ticketItemsContainer = document.getElementById('ticket-items');
+            ticketItemsContainer.innerHTML = '';
+
+            ticket.items.forEach(item => {
+                const total = item.price * item.quantity;
+                ticketItemsContainer.innerHTML += `
+                    <div class="ticket-item">
+                        <span>${item.quantity} x ${item.name}</span>
+                        <span class="text-end">$${total.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            // Cargar totales (solo total final en este diseño)
+            document.getElementById('ticket-total-display').textContent = `$${ticket.total.toFixed(2)}`;
+
+            // Método de pago (no se muestra explícitamente en el diseño, pero lo mantengo por si acaso)
+            const paymentMethods = {
+                'credit': 'Tarjeta de Crédito',
+                'debit': 'Tarjeta de Débito',
+                'paypal': 'PayPal',
+                'transfer': 'Transferencia Bancaria',
+                'oxxo': 'Oxxo'
+            };
+            // Si necesitas mostrarlo en algún lugar, puedes usar esta línea:
+            // document.getElementById('payment-method').textContent = paymentMethods[ticket.paymentMethod] || ticket.paymentMethod;
+        }
+
+        // Función para imprimir un ticket (ahora genera PDF)
+        function printTicket() {
+            const element = document.getElementById('ticket'); // El contenedor del ticket
+
+            html2pdf(element, {
+                margin: 10,
+                filename: 'ticket-compra.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            });
+        }
+
+        // Cambiar el evento del botón de imprimir para usar la nueva función
+        document.querySelector('.no-print button.btn-primary').onclick = printTicket;
+
+        // Cargar ticket al iniciar
+        loadTicket();
+    </script>
+</body>
+
+</html>
